@@ -1,0 +1,24 @@
+name: bump version for pull requests
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout, bump if needed
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+        run: |
+          pip install poetry
+          version=v$(poetry version -s)
+          if git rev-parse $version >/dev/null 2>&1; then
+            poetry version patch
+            version=v$(poetry version -s)
+            git commit -a -m "Bump version to $version"
+            git push
+          fi
