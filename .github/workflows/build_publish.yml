@@ -10,10 +10,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       
-      - name: checkout, tag, publish
+      - name: checkout
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
+        
+      - name: tag and publish  
         run: |
           pip install poetry
           git config user.name github-actions

@@ -9,10 +9,12 @@ jobs:
   main:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout, bump if needed
+      - name: Checkout
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
+
+      - name: Bump if needed
         run: |
           pip install poetry
           version=v$(poetry version -s)
